@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {{title}} </title>
+</head>
+<body>
+    <h1>Amazing Events</h1>
+        <form action="/events" method="post">
+            <label for="event_name">Event Name</label>
+            <input type="text" name="name" id="event_name">
+        <br>
+            <label for="event_date">Event Date</label>
+            <input type="date" name="date" id="event_date">
+        <br>
+            <label for="event_capacity">Capacity</label>
+            <input type="number" name="capacity" id="event_capacity">
+        <br>
+            <label for="event_location">Location</label>
+            <input type="text" name="location" id="event_location">
+        <br>
+            <label for="event_description">Description</label>
+            <input type="text" name="description" id="event_description">
+        <br>
+            <label for="event_recurring">Is this a recurring event?</label>
+            <input type="checkbox" name="recurring" id="event_recurring" value="True">
+            <input type="hidden" name="recurring" id="event_recurring_hidden" value="False">
+        <br>
+            <input type="submit" value="Add event">
+        </form>
+
+        <h2>Your list of events</h2>
+        <ul> 
+            {% for event in events_html %}
+                <li> {{event.name}}: {{event.date}}
+                    {% if event.recurring %}
+                    <span>&#128197;</span>
+                    {% endif%}
+                </li>
+            {% endfor %}
+        </ul>
+        <h2>You can delete events here</h2>
+            <form action="/events/delete/<index>">
+            <label for="event_delete">Name of event to delete</label>
+            <input type="text" name="delete" id="event_delete">
+            <input type="submit" value="delete event">
+            </form>
+
+</body>
+</html>
